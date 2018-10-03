@@ -1,4 +1,4 @@
-module.exports = (ref, app, required = true) => {
+module.exports = (ref, app, required = [true, 'This field is required.']) => {
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   return {
