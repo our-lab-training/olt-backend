@@ -1,14 +1,21 @@
 // perms-model.js - A mongoose model
-// 
-// See http://mongoosejs.com/docs/models.html
-// for more of what you can do here.
+
+const DefaultSchema = require('../types/default.schema');
+const typedObjectIdType = require('../types/typedObjectId.type');
+const permType = require('../types/perm.type');
+
 module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
-  const { Schema } = mongooseClient;
-  const perms = new Schema({
-    text: { type: String, required: true }
-  }, {
-    timestamps: true
+
+  const perms = DefaultSchema(app);
+  perms.add({
+    type: {
+      type: String,
+      required: true,
+      enum: ['users', 'roles'],
+    },
+    grantee: typedObjectIdType('type', app),
+    perm: permType(),
   });
 
   return mongooseClient.model('perms', perms);
