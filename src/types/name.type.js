@@ -1,6 +1,6 @@
-module.exports = (required=[true, 'Name is required.'], opts) => {return {
+module.exports = (required=[true, 'Name is required.'], length=256, opts) => {return {
   type: String,
-  maxLength: [256, 'Name cannot be longer than 256 characters'],
+  maxLength: [length, `Name cannot be longer than ${length} characters`],
   trim: true,
   required,
   ...opts

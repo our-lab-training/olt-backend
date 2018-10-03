@@ -2,35 +2,24 @@
 // 
 // See http://mongoosejs.com/docs/models.html
 // for more of what you can do here.
+const DefaultSchema = require('../types/default.schema');
+const NameType = require('../types/name.type');
+const PhemeIdType = require('../types/phemeId.type');
+const EmailType = require('../types/email.type');
+
 module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
-  const { Schema } = mongooseClient;
-  const users = new Schema({
-    username: { 
-      type: String, 
-      required: true 
-    },
+  const users = DefaultSchema(app);
+  users.add({
+    username: PhemeIdType(),
     profile: {
-      firstname: { 
-        type: String, 
-        required: true 
-      },
-      lastname: { 
-        type: String, 
-        required: true 
-      },
-      title: { 
-        type: String, 
-        required: true 
-      },
-      displayname: { 
-        type: String, 
-        required: true 
-      },
-    }
-  }, {
-    timestamps: true
+      firstname: NameType(),
+      lastname: NameType(),
+      title: NameType([true, 'Title is required']),
+      displayname: NameType(),
+    },
+    email: EmailType(),
   });
-
+  
   return mongooseClient.model('users', users);
 };
