@@ -6,6 +6,7 @@
 const DefaultSchema = require('../types/default.schema');
 const NameType = require('../types/name.type');
 const ObjectIdType = require('../types/objectId.type');
+const TypedObjectIdType = require('../types/typedObjectId.type');
 
 module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
@@ -17,15 +18,7 @@ module.exports = function (app) {
       required: true,
       enum: ['content', 'quizzes', 'inductions'], // TODO: abstract to config 
     },
-    itemId: {
-      type: Schema.Types.ObjectId,
-      required: true,
-      validate: async function(v){
-        if(!v) throw new Error(`${this.type} reference is required.`);
-        const row = await app.service(this.type).get(v);
-        if(!row) throw new Error(`${this.type} reference does not exist.`);
-      },
-    },
+    itemId: TypedObjectIdType('type', app),
     required: {
       type: Boolean,
       required: true,
