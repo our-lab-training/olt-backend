@@ -6,7 +6,7 @@ const ObjectIdType = require('../types/objectId.type');
 
 module.exports = function (app) {
 
-  const content = DefaultSchema.clone();
+  const content = DefaultSchema(app);
   content.add({
     title: nameType(),
     path: {
