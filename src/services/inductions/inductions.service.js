@@ -1,7 +1,7 @@
 // Initializes the `induction` service on path `/induction`
 const createService = require('feathers-mongoose');
-const createModel = require('../../models/induction.model');
-const hooks = require('./induction.hooks');
+const createModel = require('../../models/inductions.model');
+const hooks = require('./inductions.hooks');
 
 module.exports = function (app) {
   const Model = createModel(app);
@@ -13,10 +13,10 @@ module.exports = function (app) {
   };
 
   // Initialize our service with any options it requires
-  app.use('/induction', createService(options));
+  app.use('/inductions', createService(options));
 
   // Get our initialized service so that we can register hooks
-  const service = app.service('induction');
+  const service = app.service('inductions');
 
   service.hooks(hooks);
 };
