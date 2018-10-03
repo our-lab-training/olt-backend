@@ -5,7 +5,8 @@ const nameType = require('../types/name.type');
 const ObjectIdType = require('../types/objectId.type');
 
 module.exports = function (app) {
-
+  
+  const mongooseClient = app.get('mongooseClient');
   const content = DefaultSchema(app);
   content.add({
     title: nameType(),
