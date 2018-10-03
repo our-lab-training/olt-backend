@@ -1,7 +1,7 @@
 // Initializes the `moduleConfig` service on path `/module-config`
 const createService = require('feathers-mongoose');
-const createModel = require('../../models/module-config.model');
-const hooks = require('./module-config.hooks');
+const createModel = require('../../models/module-configs.model');
+const hooks = require('./module-configs.hooks');
 
 module.exports = function (app) {
   const Model = createModel(app);
@@ -13,10 +13,10 @@ module.exports = function (app) {
   };
 
   // Initialize our service with any options it requires
-  app.use('/module-config', createService(options));
+  app.use('/module-configs', createService(options));
 
   // Get our initialized service so that we can register hooks
-  const service = app.service('module-config');
+  const service = app.service('module-configs');
 
   service.hooks(hooks);
 };

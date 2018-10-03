@@ -45,15 +45,24 @@ module.exports = function (app) {
       paginate: false,
       query: {
         _id: {$in: quiz.questions},
-        $sort: {priority: 1},
       },
     });
     // randomise that order if configured that way
     if(quiz.randomise) questions = _.shuffle(questions);
+    else questions = quiz.questions.map((q)=>_.find(questions, {_id: q}));
     // reduce the length of the questions to numQuestions (if specified and enough questions exist)
     if(quiz.numQuestions && questions.length > quiz.numQuestions) questions = questions.slice(quiz.numQuestions-1);
     // map the questions to the response format.
     this.responses = questions.map((q) => {return {questionId: q._id};});
+  });
+
+  attempts.virtual('questions').get(async function(){
+    return (await app.service('questions').find({
+      paginate: false,
+      query: {
+        _id: {$in: this.responses.map((r)=>r.questionId)},
+      },
+    })).map((q)=>_.omit(q, 'answer'));
   });
 
   return mongooseClient.model('attempts', attempts);
