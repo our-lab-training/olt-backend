@@ -53,4 +53,7 @@ app.use(express.errorHandler({ logger }));
 
 app.hooks(appHooks);
 
+//list all the modules installed
+app.modulesList = ['content', 'perms', 'modules', 'training', 'quizzes', 'attempts'];
+
 module.exports = app;

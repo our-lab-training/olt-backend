@@ -1,12 +1,12 @@
 // attempts-model.js - A mongoose model
 
 const _ = require('lodash');
+const DefaultSchema = require('../types/default.schema');
 const ObjectIdType = require('../types/objectId.type');
 
 module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
-  const { ObjectId } = Schema.Types;
 
   const responseSchema = new Schema({
     questionId: ObjectId('questions', app),
@@ -20,7 +20,8 @@ module.exports = function (app) {
     },
   });
 
-  const attempts = new Schema({
+  const attempts = DefaultSchema.clone();
+  attempts.add({
     userId: ObjectIdType('users', app),
     quizId: ObjectIdType('quizzes', app),
     status: {
@@ -33,8 +34,6 @@ module.exports = function (app) {
       type: [responseSchema],
       required: true,
     },
-  }, {
-    timestamps: true
   });
 
   //implement default responses array, selects the questions
