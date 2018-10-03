@@ -9,7 +9,7 @@ module.exports = function (app) {
   const { Schema } = mongooseClient;
 
   const responseSchema = new Schema({
-    questionId: ObjectId('questions', app),
+    questionId: ObjectIdType('questions', app),
     response: {
       type: Schema.Types.Mixed,
     },
@@ -20,7 +20,7 @@ module.exports = function (app) {
     },
   });
 
-  const attempts = DefaultSchema.clone();
+  const attempts = DefaultSchema(app);
   attempts.add({
     userId: ObjectIdType('users', app),
     quizId: ObjectIdType('quizzes', app),
