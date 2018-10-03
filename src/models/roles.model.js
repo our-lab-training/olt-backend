@@ -1,14 +1,15 @@
 // roles-model.js - A mongoose model
-// 
-// See http://mongoosejs.com/docs/models.html
-// for more of what you can do here.
+
+const DefaultSchema = require('../types/default.schema');
+const nameType = require('../types/name.type');
+const ObjectIdType = require('../types/objectId.type');
+
 module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
-  const { Schema } = mongooseClient;
-  const roles = new Schema({
-    text: { type: String, required: true }
-  }, {
-    timestamps: true
+  const roles = DefaultSchema(app);
+  roles.add({
+    title: nameType(),
+    groupId: ObjectIdType('groups', app),
   });
 
   return mongooseClient.model('roles', roles);

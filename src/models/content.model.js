@@ -9,7 +9,7 @@ module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
   const content = DefaultSchema(app);
   content.add({
-    title: nameType(),
+    name: nameType(),
     path: {
       type: String,
       match: /^[a-zA-Z0-9/-_.~]+$/,
