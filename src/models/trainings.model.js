@@ -30,7 +30,7 @@ module.exports = function (app) {
     toJSON: { getters: true, virtuals: true },
     toObject: { getters: true, virtuals: true },
   });
-
+  
   itemSchema.virtual('name').get(async function () {
     const item = await app.service(this.type).get(this.itemId);
     return this.type === 'content' ? item.name : `Complete ${item.name}`;
