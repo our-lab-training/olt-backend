@@ -14,17 +14,16 @@ module.exports = (app) => async (req, done) => {
       json: true,
     });
     if(!body.success) throw new Error(body.message);
-    const users = app.service('users').find({internalId: body.user.username});
+    const users = app.service('users').find({username: body.user.username});
     let user = null;
     if(users.length === 0) {
       user = app.service('users').create({
-        internalId: body.user.username,
+        username: body.user.username,
         email: body.user.email,
         profile: {
-          name: {
-            first: body.user.firstname,
-            last: body.user.lastname,
-          }
+          firstname: body.user.firstname,
+          lastname: body.user.lastname,
+          displayname: body.user.firstname,
         }
       });
     } else user = users[0];

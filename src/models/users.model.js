@@ -15,7 +15,11 @@ module.exports = function (app) {
     profile: {
       firstname: NameType(),
       lastname: NameType(),
-      title: NameType([true, 'Title is required']),
+      title: {
+        type: String,
+        required: false,
+        enum: ['Dr', 'Mr', 'Mrs', 'Ms'],
+      },
       displayname: NameType(),
     },
     email: EmailType(),

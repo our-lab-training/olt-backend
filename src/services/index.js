@@ -6,8 +6,8 @@ const attempts = require('./attempts/attempts.service.js');
 const content = require('./content/content.service.js');
 const trainings = require('./trainings/trainings.service.js');
 const perms = require('./perms/perms.service.js');
-const moduleConfig = require('./module-config/module-config.service.js');
-const induction = require('./induction/induction.service.js');
+const moduleConfigs = require('./module-configs/module-configs.service.js');
+const inductions = require('./inductions/inductions.service.js');
 const roles = require('./roles/roles.service.js');
 // eslint-disable-next-line no-unused-vars
 module.exports = function (app) {
@@ -19,7 +19,7 @@ module.exports = function (app) {
   app.configure(content);
   app.configure(trainings);
   app.configure(perms);
-  app.configure(moduleConfig);
-  app.configure(induction);
+  app.configure(moduleConfigs);
+  app.configure(inductions);
   app.configure(roles);
 };

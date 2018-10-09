@@ -1,6 +1,7 @@
 // attempts-model.js - A mongoose model
 
 const _ = require('lodash');
+const randomRick = require('../lib/rickRoll');
 const DefaultSchema = require('../types/default.schema');
 const ObjectIdType = require('../types/objectId.type');
 
@@ -62,7 +63,7 @@ module.exports = function (app) {
       query: {
         _id: {$in: this.responses.map((r)=>r.questionId)},
       },
-    })).map((q)=>_.omit(q, 'answer'));
+    })).map((q)=>_.set(q, 'answer', randomRick()));
   });
 
   return mongooseClient.model('attempts', attempts);
