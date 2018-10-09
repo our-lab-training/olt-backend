@@ -14,10 +14,10 @@ module.exports = (app) => async (req, done) => {
       json: true,
     });
     if(!body.success) throw new Error(body.message);
-    const users = app.service('users').find({username: body.user.username});
+    const users = await app.service('users').find({query: {username: body.user.username}, paginate: false});
     let user = null;
     if(users.length === 0) {
-      user = app.service('users').create({
+      user = await app.service('users').create({
         username: body.user.username,
         email: body.user.email,
         profile: {
@@ -27,7 +27,7 @@ module.exports = (app) => async (req, done) => {
         }
       });
     } else user = users[0];
-    done(null, user);
+    done(null, user, {userId: user._id});
   } catch(err){
     done(null, false, {message: err.message});
   }

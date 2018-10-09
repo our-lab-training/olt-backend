@@ -11,10 +11,10 @@ module.exports = function (app) {
   // Set up authentication with the secret
   app.configure(authentication(config));
   app.configure(jwt());
-  app.configure(local());
+  // app.configure(local());
 
   const phemeVerifier = phemeVerifierConstructor(app);
-  app.configure(custom('pheme', phemeVerifier));
+  app.configure(custom('local', phemeVerifier));
 
   // The `authentication` service is used to create a JWT.
   // The before `create` hook registers strategies that can be used
