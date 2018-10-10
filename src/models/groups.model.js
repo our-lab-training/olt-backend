@@ -13,12 +13,15 @@ module.exports = function (app) {
     name: nameType(),
     desc: descType(),
     logo: ObjectIdType('content', app, false),
-    public: {
-      type: Boolean,
+    type: {
+      type: String,
       required: true,
-      default: false,
-    }
+      enum: ['public', 'private', 'global', 'template'],
+      default: 'private',
+    },
   });
+
+  groups.virtual('public').get(function(){return this.type === 'private' || this.type === 'template'})
 
   return mongooseClient.model('groups', groups);
 };
