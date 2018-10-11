@@ -14,7 +14,7 @@ module.exports = {
   },
 
   after: {
-    all: [resolvePromise('perms'), context => console.log(context.result)],
+    all: [resolvePromise('perms')],
     find: [],
     get: [],
     create: [],
