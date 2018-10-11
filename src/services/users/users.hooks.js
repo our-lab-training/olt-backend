@@ -1,5 +1,7 @@
 
 
+const resolvePromise = require('../../hooks/resolve-promise');
+
 module.exports = {
   before: {
     all: [],
@@ -12,7 +14,7 @@ module.exports = {
   },
 
   after: {
-    all: [],
+    all: [resolvePromise('perms'), context => console.log(context.result)],
     find: [],
     get: [],
     create: [],

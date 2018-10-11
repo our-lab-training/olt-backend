@@ -8,10 +8,11 @@ module.exports = (app) => async (req, done) => {
   try {
     const { username, password } = req.query;
     const isDemoUser = process.env.NODE_ENV !== 'production' && username === '12345678' && password === 'demo';
+    let body = null;
     if(isDemoUser){
-      const body = {success: true, user: {username, email: '12345678@example.uwa.edu.au', firstname: 'Jo', lastname: 'Blogs'}};
+      body = {success: true, user: {username, email: '12345678@example.uwa.edu.au', firstname: 'Jo', lastname: 'Blogs'}};
     } else {
-      const body = await request({
+      body = await request({
         method: 'POST',
         uri: 'https://auth.makeuwa.com/api/login',
         body: {
