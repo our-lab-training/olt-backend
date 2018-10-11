@@ -8,17 +8,11 @@ const checkPerm = require('../lib/checkPerm');
 // eslint-disable-next-line no-unused-vars
 module.exports = function (opts = {}) {
   return async context => {
-    const {params, service, app} = context;
+    const {params, serviceName} = context;
     if(!params.provider) return context;
     if(!params.user) throw new errors.NotAuthenticated('You must be logged in.');
     if(opts.override && checkPerm(opts.override, params.user)) return context;
-    let serviceName = null;
-    for(let i in app.services){
-      if(app.services[i] === service){
-        serviceName = i;
-        break;
-      }
-    }
+    
     opts.id = opts.id || serviceName === 'groups' ? '_id' : 'groupId';
     const andarr = params.query.$and = params.query.$and || [];
     const groupsIdFilter = _.set({}, opts.id, {$in: params.user.perms.groups});

@@ -1,15 +1,21 @@
 // Application hooks that run for every service
 const log = require('./hooks/log');
 
+const enabledFilter = require('./hooks/enabled-filter');
+
+const modifiedBy = require('./hooks/modified-by');
+
+const existingContext = require('./hooks/existing-context');
+
 module.exports = {
   before: {
     all: [ log() ],
-    find: [],
+    find: [enabledFilter()],
     get: [],
-    create: [],
-    update: [],
-    patch: [],
-    remove: []
+    create: [modifiedBy()],
+    update: [existingContext(), modifiedBy()],
+    patch: [existingContext(), modifiedBy()],
+    remove: [existingContext()]
   },
 
   after: {
