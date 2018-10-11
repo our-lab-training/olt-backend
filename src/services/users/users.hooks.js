@@ -2,6 +2,8 @@
 
 const resolvePromise = require('../../hooks/resolve-promise');
 
+const safeRemove = require('../../hooks/safe-remove');
+
 module.exports = {
   before: {
     all: [],
@@ -10,7 +12,7 @@ module.exports = {
     create: [],
     update: [],
     patch: [],
-    remove: []
+    remove: [safeRemove()]
   },
 
   after: {

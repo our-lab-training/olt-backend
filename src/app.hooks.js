@@ -7,10 +7,12 @@ const modifiedBy = require('./hooks/modified-by');
 
 const existingContext = require('./hooks/existing-context');
 
+const fuzzySearch = require('./hooks/fuzzy-search');
+
 module.exports = {
   before: {
     all: [ log() ],
-    find: [enabledFilter()],
+    find: [enabledFilter(), fuzzySearch()],
     get: [],
     create: [modifiedBy()],
     update: [existingContext(), modifiedBy()],

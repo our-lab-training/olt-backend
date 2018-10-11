@@ -1,5 +1,7 @@
 
 
+const safeRemove = require('../../hooks/safe-remove');
+
 module.exports = {
   before: {
     all: [],
@@ -8,7 +10,7 @@ module.exports = {
     create: [],
     update: [],
     patch: [],
-    remove: []
+    remove: [safeRemove()]
   },
 
   after: {

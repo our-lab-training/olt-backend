@@ -6,7 +6,7 @@
 module.exports = function (options = {}) {
   return async context => {
     const field = context.method === 'create' ? 'createdBy' : 'updatedBy';
-    let userId = null;
+    let userId = undefined;
     if(context.params.user) user = context.params.user._id;
     context.data.updatedBy = userId;
     if(context.method === 'create'){
