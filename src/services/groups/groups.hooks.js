@@ -1,5 +1,5 @@
 
-const restrictMethod = require('./hooks/restrict-method');
+const restrictMethod = require('../../hooks/restrict-method');
 
 const filterByGroup = require('../../hooks/filter-by-group');
 
