@@ -5,9 +5,8 @@
 // eslint-disable-next-line no-unused-vars
 module.exports = function (options = {}) {
   return async context => {
-    const field = context.method === 'create' ? 'createdBy' : 'updatedBy';
     let userId = undefined;
-    if(context.params.user) user = context.params.user._id;
+    if(context.params.user) userId = context.params.user._id;
     context.data.updatedBy = userId;
     if(context.method === 'create'){
       context.data.createdBy = userId;
