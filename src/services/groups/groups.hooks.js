@@ -5,6 +5,8 @@ const filterByGroup = require('../../hooks/filter-by-group');
 
 const safeRemove = require('../../hooks/safe-remove');
 
+const populateGlobals = require('../../hooks/populate-globals');
+
 module.exports = {
   before: {
     all: [],
@@ -20,7 +22,7 @@ module.exports = {
     all: [],
     find: [],
     get: [],
-    create: [],
+    create: [populateGlobals()],
     update: [],
     patch: [],
     remove: []

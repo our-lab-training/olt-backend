@@ -1,8 +1,6 @@
 
-
-const resolvePromise = require('../../hooks/resolve-promise');
-
 const safeRemove = require('../../hooks/safe-remove');
+const populateGlobals = require('../../hooks/populate-globals');
 
 module.exports = {
   before: {
@@ -16,10 +14,10 @@ module.exports = {
   },
 
   after: {
-    all: [resolvePromise('perms')],
+    all: [],
     find: [],
     get: [],
-    create: [],
+    create: [populateGlobals()],
     update: [],
     patch: [],
     remove: []

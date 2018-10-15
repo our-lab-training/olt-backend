@@ -4,6 +4,8 @@
 
 const DefaultSchema = require('../types/default.schema');
 const ObjectIdType = require('../types/objectId.type');
+const requireDirectory = require('require-directory');
+const mods = requireDirectory(module, './module-settings/');
 
 module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
@@ -14,7 +16,13 @@ module.exports = function (app) {
     module: {
       type: String,
       required: true,
-      enum: app.modulesList
+      enum: Object.keys(mods),
+    },
+    settings: {
+      type: mongooseClient.Types.Mixed,
+      validate: async function(){
+        return true;
+      },
     }
   });
 

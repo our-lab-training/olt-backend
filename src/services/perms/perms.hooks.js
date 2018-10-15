@@ -2,6 +2,8 @@
 
 const safeRemove = require('../../hooks/safe-remove');
 
+const rebasePerms = require('../../hooks/rebase-perms');
+
 module.exports = {
   before: {
     all: [],
@@ -17,10 +19,10 @@ module.exports = {
     all: [],
     find: [],
     get: [],
-    create: [],
-    update: [],
-    patch: [],
-    remove: []
+    create: [rebasePerms()],
+    update: [rebasePerms()],
+    patch: [rebasePerms()],
+    remove: [rebasePerms()]
   },
 
   error: {

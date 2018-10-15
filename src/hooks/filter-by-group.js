@@ -5,6 +5,8 @@ const _ = require('lodash');
 const errors = require('@feathersjs/errors');
 const checkPerm = require('../lib/checkPerm');
 
+
+
 // eslint-disable-next-line no-unused-vars
 module.exports = function (opts = {}) {
   return async context => {
@@ -14,13 +16,15 @@ module.exports = function (opts = {}) {
     if(opts.override && checkPerm(opts.override, params.user)) return context;
     
     opts.id = opts.id || serviceName === 'groups' ? '_id' : 'groupId';
+    opts.include = opts.include || serviceName === 'groups' ? ['public', 'global'] : ['global'];
+
     const andarr = params.query.$and = params.query.$and || [];
     const groupsIdFilter = _.set({}, opts.id, {$in: params.user.perms.groups});
     
     if(serviceName === 'groups'){
       andarr.push({$or: [
         groupsIdFilter,
-        {type: {$in: ['public', 'global']}},
+        {type: {$in: opts.include}},
       ]});
     } else {
       andarr.push(groupsIdFilter);
