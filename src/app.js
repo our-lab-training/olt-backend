@@ -14,6 +14,7 @@ const middleware = require('./middleware');
 const services = require('./services');
 const appHooks = require('./app.hooks');
 const channels = require('./channels');
+const modules = require('./modules');
 
 const mongoose = require('./mongoose');
 
@@ -47,13 +48,13 @@ app.configure(services);
 // Set up event channels (see channels.js)
 app.configure(channels);
 
+// Set up modules (see modules/index.js)
+app.configure(modules);
+
 // Configure a middleware for 404s and the error handler
 app.use(express.notFound());
 app.use(express.errorHandler({ logger }));
 
 app.hooks(appHooks);
-
-//list all the modules installed
-app.modulesList = ['content', 'perms', 'modules', 'training', 'quizzes', 'attempts'];
 
 module.exports = app;
