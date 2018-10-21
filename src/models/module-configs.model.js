@@ -4,11 +4,11 @@
 
 const DefaultSchema = require('../types/default.schema');
 const ObjectIdType = require('../types/objectId.type');
-const requireDirectory = require('require-directory');
-const mods = requireDirectory(module, './module-settings/');
+const { Mixed } = require('mongoose').Schema.Types;
 
 module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
+  const { plugins } = app;
 
   const moduleConfigs = DefaultSchema(app);
   moduleConfigs.add({
@@ -16,11 +16,15 @@ module.exports = function (app) {
     module: {
       type: String,
       required: true,
-      enum: Object.keys(mods),
+      enum: Object.keys(plugins),
     },
     settings: {
-      type: mongooseClient.Types.Mixed,
-      validate: async function(){
+      type: Mixed,
+      validate: async function(v){
+        if(!plugins[this.type]) throw new Error('Unknown plugin');
+        if(!plugins[this.type].model && !v) return true;
+        const config = new plugins[this.type].model(v);
+        await config.validate();
         return true;
       },
     }

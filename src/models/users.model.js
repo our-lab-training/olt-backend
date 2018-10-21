@@ -6,6 +6,7 @@ const DefaultSchema = require('../types/default.schema');
 const NameType = require('../types/name.type');
 const PhemeIdType = require('../types/phemeId.type');
 const EmailType = require('../types/email.type');
+const { Mixed } = require('mongoose').Schema.Types;
 
 module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
@@ -23,7 +24,7 @@ module.exports = function (app) {
       displayname: NameType(),
     },
     email: EmailType(),
-    perms: mongooseClient.Types.Mixed,
+    perms: Mixed,
   });
   
   return mongooseClient.model('users', users);

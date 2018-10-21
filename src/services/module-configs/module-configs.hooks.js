@@ -1,5 +1,3 @@
-
-
 const safeRemove = require('../../hooks/safe-remove');
 const filterByGroup = require('../../hooks/filter-by-group');
 const restrictMethod = require('../../hooks/restrict-method');

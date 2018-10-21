@@ -1,0 +1,3 @@
+[submodule "access-module-content"]
+	path = src/plugins/content
+	url = https://github.com/ThinkHub-io/access-module-content.git
