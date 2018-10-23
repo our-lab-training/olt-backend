@@ -9,9 +9,11 @@ const existingContext = require('./hooks/existing-context');
 
 const fuzzySearch = require('./hooks/fuzzy-search');
 
+const addServiceName = require('./hooks/add-service-name');
+
 module.exports = {
   before: {
-    all: [ log() ],
+    all: [log(), addServiceName()],
     find: [enabledFilter(), fuzzySearch()],
     get: [],
     create: [modifiedBy()],
