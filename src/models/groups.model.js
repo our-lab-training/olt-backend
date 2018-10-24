@@ -7,6 +7,7 @@ const ObjectIdType = require('../types/objectId.type');
 
 module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
+  const { plugins } = app;
   
   const groups = DefaultSchema(app);
   groups.add({
@@ -19,9 +20,16 @@ module.exports = function (app) {
       enum: ['public', 'private', 'global', 'template'],
       default: 'private',
     },
+    plugins: {
+      type: [{
+        type: String,
+        required: true,
+        enum: Object.keys(plugins),
+      }],
+      required: true,
+      default: [],
+    }
   });
-
-  groups.virtual('public').get(function(){return this.type === 'private' || this.type === 'template'})
 
   return mongooseClient.model('groups', groups);
 };
