@@ -14,6 +14,11 @@ module.exports = function (app) {
     name: nameType(),
     desc: descType(),
     logo: ObjectIdType('content', app, false),
+    icon: {
+      type: String,
+      maxlength: 64,
+      default: 'group',
+    },
     type: {
       type: String,
       required: true,
