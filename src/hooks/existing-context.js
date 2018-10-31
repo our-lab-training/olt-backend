@@ -11,7 +11,7 @@ module.exports = function (options = {}) {
     context.existing = await app.service(serviceName).get(id);
     if(!context.existing) throw new errors.NotFound('Id provided does not exist.');
 
-    if(context.data && !params.isSafeRemove) context.data.enabled = context.existing.enabled;
+    if(context.data && !params.overrideSafeRemove) context.data.enabled = context.existing.enabled;
     return context;
   };
 };

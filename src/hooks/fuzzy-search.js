@@ -10,16 +10,16 @@ module.exports = function (options = {}) {
         query[field] = { $regex: new RegExp(query[field].$search, 'i') };
       }
       if(field === '$or') {
-        query[field].map((action, index) => {
-            let f = Object.keys(action)[0];
-            if(action[f].$search) {
-                action[f] = { $regex: new RegExp(action[f].$search, 'i') };
-            }
-            return action;
+        query[field].map((action) => {
+          let f = Object.keys(action)[0];
+          if(action[f].$search) {
+            action[f] = { $regex: new RegExp(action[f].$search, 'i') };
+          }
+          return action;
         });
       }
     }
     context.params.query = query;
     return context;
-  }
+  };
 };

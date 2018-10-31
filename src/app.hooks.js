@@ -7,14 +7,14 @@ const modifiedBy = require('./hooks/modified-by');
 
 const existingContext = require('./hooks/existing-context');
 
-const fuzzySearch = require('./hooks/fuzzy-search');
+// const fuzzySearch = require('./hooks/fuzzy-search');
 
 const addServiceName = require('./hooks/add-service-name');
 
 module.exports = {
   before: {
     all: [log(), addServiceName()],
-    find: [enabledFilter(), fuzzySearch()],
+    find: [enabledFilter()/*, fuzzySearch()*/],
     get: [],
     create: [modifiedBy()],
     update: [existingContext(), modifiedBy()],

@@ -1,7 +1,7 @@
 const request = require('request-promise-native');
 
 if(process.env.NODE_ENV !== 'production'){
-  console.warn('Warning: not in production mode, enabling demo user');
+  console.warn('Warning: not in production mode, enabling demo user'); // eslint-disable-line
 }
 
 module.exports = (app) => async (req, done) => {

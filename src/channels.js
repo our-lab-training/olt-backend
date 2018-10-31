@@ -58,8 +58,7 @@ module.exports = function(app) {
   //     app.channel(`emails/${data.recipientEmail}`)
   //   ];
   // });
-//  app.service('users').publish('patched', data => {
-//    console.log(data); // eslint-disable-line
-//    return app.channel(`userIds/${data._id}`);
-//  });
+  app.service('users').publish('patched', data => {
+    return app.channel(`userIds/${data._id}`);
+  });
 };
