@@ -37,13 +37,9 @@ module.exports = function (app) {
     slugs: {
       type: [{
         type: String,
-        maxlength: 256,
-        match: /$[\w-]+^/,
-        validate: async function(v){
-          if(!v) throw new Error('invalid slug.');
-          const rows = await app.service('groups').find({slugs: {$elemMatch: v}, _id: {$ne: this._id}}, {paginate: false});
-          if(rows.length) throw new Error('slug provided already exist.');
-        },
+        maxlength: [256, 'the slug/name is too long.'],
+        match: [/^[\w-]+$/, 'invalid characters in slug'],
+        lowercase: true,
       }],
       required: true,
     },
