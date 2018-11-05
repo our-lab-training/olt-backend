@@ -9,6 +9,8 @@ const populateGlobals = require('../../hooks/populate-globals');
 
 const manageSlugs = require('../../hooks/manage-slugs');
 
+const enrollCreator = require('../../hooks/enroll-creator');
+
 module.exports = {
   before: {
     all: [],
@@ -24,7 +26,7 @@ module.exports = {
     all: [],
     find: [],
     get: [],
-    create: [populateGlobals()],
+    create: [populateGlobals(), enrollCreator()],
     update: [],
     patch: [],
     remove: []
