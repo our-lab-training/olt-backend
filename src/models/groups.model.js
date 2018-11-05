@@ -3,7 +3,7 @@
 const DefaultSchema = require('../types/default.schema');
 const nameType = require('../types/name.type');
 const descType = require('../types/desc.type');
-const ObjectIdType = require('../types/objectId.type');
+// const ObjectIdType = require('../types/objectId.type');
 
 module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
@@ -13,7 +13,10 @@ module.exports = function (app) {
   groups.add({
     name: nameType(),
     desc: descType(),
-    logo: ObjectIdType('content', app, false),
+    logo: {
+      type: String,
+      maxlength: 32768,
+    },
     icon: {
       type: String,
       maxlength: 64,
