@@ -4,6 +4,35 @@ module.exports = function(app) {
     return;
   }
 
+  const joinChannels = (connection) => {
+    const user = connection.user;
+    // add to own userId channel
+    app.channel(`userIds/${user._id}`).join(connection);
+    // add to associated groups
+    for(let groupId of user.perms.groups) {
+      app.channel(`groupIds/${groupId}`).join(connection);
+    }
+  };
+
+  const leaveChannels = user => {
+    app.channel(app.channels).leave(connection => {
+      return user._id === connection.user._id;
+    });
+  };
+
+  const updateChannels = user => {
+    // Find all connections for this user
+    const { connections } = app.channel(app.channels).filter(connection =>
+      connection.user._id === user._id
+    );
+  
+    // Leave all channels
+    leaveChannels(user);
+  
+    // Re-join all channels with the updated user information
+    connections.forEach(connection => joinChannels(user, connection));
+  };
+
   app.on('connection', connection => {
     // On a new real-time connection, add it to the anonymous channel
     app.channel('anonymous').join(connection);
@@ -14,7 +43,7 @@ module.exports = function(app) {
     // real-time connection, e.g. when logging in via REST
     if(connection) {
       // Obtain the logged in user from the connection
-      const user = connection.user;
+      // const user = connection.user;
       
       // The connection is no longer anonymous, remove it
       app.channel('anonymous').leave(connection);
@@ -32,7 +61,7 @@ module.exports = function(app) {
       
       // Easily organize users by email and userid for things like messaging
       // app.channel(`emails/${user.email}`).join(channel);
-      app.channel(`userIds/${user._id}`).join(connection);
+      joinChannels(connection);
     }
   });
 
@@ -58,7 +87,17 @@ module.exports = function(app) {
   //     app.channel(`emails/${data.recipientEmail}`)
   //   ];
   // });
-  app.service('users').publish('patched', data => {
+  app.service('users').publish('updated', data => {
+    updateChannels(data);
     return app.channel(`userIds/${data._id}`);
+  });
+  app.service('users').publish('patched', data => {
+    updateChannels(data);
+    return app.channel(`userIds/${data._id}`);
+  });
+  app.service('users').on('removed', leaveChannels);
+
+  app.service('groups').publish(data => {
+    return app.channel(`groupIds/${data._id}`);
   });
 };
