@@ -4,6 +4,35 @@ module.exports = function(app) {
     return;
   }
 
+  const joinChannels = (connection) => {
+    const user = connection.user;
+    // add to own userId channel
+    app.channel(`userIds/${user._id}`).join(connection);
+    // add to associated groups
+    for(let groupId of user.perms.groups) {
+      app.channel(`groupIds/${groupId}`).join(connection);
+    }
+  };
+
+  const leaveChannels = user => {
+    app.channel(app.channels).leave(connection => {
+      return user._id === connection.user._id;
+    });
+  };
+
+  const updateChannels = user => {
+    // Find all connections for this user
+    const { connections } = app.channel(app.channels).filter(connection =>
+      connection.user._id === user._id
+    );
+  
+    // Leave all channels
+    leaveChannels(user);
+  
+    // Re-join all channels with the updated user information
+    connections.forEach(connection => joinChannels(user, connection));
+  };
+
   app.on('connection', connection => {
     // On a new real-time connection, add it to the anonymous channel
     app.channel('anonymous').join(connection);
@@ -32,20 +61,20 @@ module.exports = function(app) {
       
       // Easily organize users by email and userid for things like messaging
       // app.channel(`emails/${user.email}`).join(channel);
-      // app.channel(`userIds/$(user.id}`).join(channel);
+      joinChannels(connection);
     }
   });
 
   // eslint-disable-next-line no-unused-vars
-  app.publish((data, hook) => {
-    // Here you can add event publishers to channels set up in `channels.js`
-    // To publish only for a specific event use `app.publish(eventname, () => {})`
+  // app.publish((data, hook) => {
+  // Here you can add event publishers to channels set up in `channels.js`
+  // To publish only for a specific event use `app.publish(eventname, () => {})`
 
-    console.log('Publishing all events to all authenticated users. See `channels.js` and https://docs.feathersjs.com/api/channels.html for more information.'); // eslint-disable-line
+  // console.log('Publishing all events to all authenticated users. See `channels.js` and https://docs.feathersjs.com/api/channels.html for more information.'); // eslint-disable-line
 
-    // e.g. to publish all service events to all authenticated users use
-    return app.channel('authenticated');
-  });
+  // e.g. to publish all service events to all authenticated users use
+  // return app.channel('authenticated');
+  // });
 
   // Here you can also add service specific event publishers
   // e.g. the publish the `users` service `created` event to the `admins` channel
@@ -58,4 +87,17 @@ module.exports = function(app) {
   //     app.channel(`emails/${data.recipientEmail}`)
   //   ];
   // });
+  app.service('users').publish('updated', data => {
+    updateChannels(data);
+    return app.channel(`userIds/${data._id}`);
+  });
+  app.service('users').publish('patched', data => {
+    updateChannels(data);
+    return app.channel(`userIds/${data._id}`);
+  });
+  app.service('users').on('removed', leaveChannels);
+
+  app.service('groups').publish(data => {
+    return app.channel(`groupIds/${data._id}`);
+  });
 };

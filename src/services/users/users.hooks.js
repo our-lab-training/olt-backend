@@ -1,4 +1,6 @@
 
+const safeRemove = require('../../hooks/safe-remove');
+const populateGlobals = require('../../hooks/populate-globals');
 
 module.exports = {
   before: {
@@ -8,14 +10,14 @@ module.exports = {
     create: [],
     update: [],
     patch: [],
-    remove: []
+    remove: [safeRemove()]
   },
 
   after: {
     all: [],
     find: [],
     get: [],
-    create: [],
+    create: [populateGlobals()],
     update: [],
     patch: [],
     remove: []

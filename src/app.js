@@ -14,6 +14,7 @@ const middleware = require('./middleware');
 const services = require('./services');
 const appHooks = require('./app.hooks');
 const channels = require('./channels');
+const plugins = require('./plugins');
 
 const mongoose = require('./mongoose');
 
@@ -39,6 +40,9 @@ app.configure(socketio());
 
 app.configure(mongoose);
 
+// Set up plugins (see plugins/index.js)
+app.configure(plugins);
+
 // Configure other middleware (see `middleware/index.js`)
 app.configure(middleware);
 app.configure(authentication);
@@ -52,8 +56,5 @@ app.use(express.notFound());
 app.use(express.errorHandler({ logger }));
 
 app.hooks(appHooks);
-
-//list all the modules installed
-app.modulesList = ['content', 'perms', 'modules', 'training', 'quizzes', 'attempts'];
 
 module.exports = app;
