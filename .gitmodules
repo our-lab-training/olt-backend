@@ -1,3 +1,9 @@
 [submodule "access-module-content"]
 	path = src/plugins/content
 	url = https://github.com/ThinkHub-io/access-module-content.git
+[submodule "src/plugins/quizzes"]
+	path = src/plugins/quizzes
+	url = https://github.com/ThinkHub-io/access-plugin-quizzes.git
+[submodule "src/plugins/training"]
+	path = src/plugins/training
+	url = https://github.com/ThinkHub-io/access-plugin-training.git
