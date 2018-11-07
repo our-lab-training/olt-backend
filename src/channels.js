@@ -9,6 +9,7 @@ module.exports = function(app) {
     // add to own userId channel
     app.channel(`userIds/${user._id}`).join(connection);
     // add to associated groups
+    if(!user.perms) return;
     for(let groupId of user.perms.groups) {
       app.channel(`groupIds/${groupId}`).join(connection);
     }

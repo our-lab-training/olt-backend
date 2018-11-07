@@ -12,7 +12,7 @@ module.exports = function (options = {}) {
     let perm = perms[0];
     if(!perm.enabled){
       params.overrideSafeRemove = true;
-      perm = service.patch(perm._id, {enabled: true}, params);
+      perm = await service.patch(perm._id, {enabled: true}, params);
     }
     context.result = perm;
 
