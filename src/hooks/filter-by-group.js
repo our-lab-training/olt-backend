@@ -19,7 +19,8 @@ module.exports = function (opts = {}) {
     opts.include = opts.include || serviceName === 'groups' ? ['public', 'global'] : ['global'];
 
     const andarr = params.query.$and = params.query.$and || [];
-    const groupsIdFilter = _.set({}, opts.id, {$in: params.user.perms.groups});
+    const groupsIdFilter = {};
+    groupsIdFilter[opts.id] = {$in: params.user.perms.groups};
     
     if(serviceName === 'groups'){
       andarr.push({$or: [

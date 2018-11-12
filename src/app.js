@@ -15,6 +15,7 @@ const services = require('./services');
 const appHooks = require('./app.hooks');
 const channels = require('./channels');
 const plugins = require('./plugins');
+const permEvent = require('./lib/permEvent');
 
 const mongoose = require('./mongoose');
 
@@ -33,6 +34,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(favicon(path.join(app.get('public'), 'favicon.ico')));
 // Host the public folder
 app.use('/', express.static(app.get('public')));
+
+// Set up event hook listeners
+app.perms = permEvent;
 
 // Set up Plugins and providers
 app.configure(express.rest());
