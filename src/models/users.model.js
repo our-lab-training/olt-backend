@@ -24,7 +24,17 @@ module.exports = function (app) {
       displayname: NameType(),
     },
     email: EmailType(),
-    perms: Mixed,
+    perms: {
+      type: Mixed,
+      required: true,
+      default: {
+        all: [],
+        userperms: [],
+        groups: [],
+        roles: [],
+        roleperms: [],
+      },
+    },
   });
   
   return mongooseClient.model('users', users);
