@@ -23,9 +23,12 @@ module.exports = {
     delete register[perm];
   },
   async hook (context) {
-    const { data } = context;
-    const lists = Object.keys(register).filter(i => comparePerm(i, data.perm));
-    const allow = (await Promise.all(lists.map(i=>register[i](context)))).indexOf(true) !== -1;
+    const { data, existing, params } = context;
+    if (!params.provider) return context;
+    let perm = data ? data.perm : existing.perm; 
+    if(typeof perm === 'string') perm = perm.split('.');
+    const lists = Object.keys(register).filter(i => comparePerm(i, perm));
+    const allow = (await Promise.all(lists.map(i=>register[i](context, perm)))).indexOf(true) !== -1;
     if(!allow) throw new errors.Forbidden('You do not have the required permissions to add this permission to this user.');
     return context;
   },
