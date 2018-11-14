@@ -1,4 +1,4 @@
-
+const groupCreateEvent = require('../../lib/groupCreateEvent');
 const restrictMethod = require('../../hooks/restrict-method');
 const filterByGroup = require('../../hooks/filter-by-group');
 const safeRemove = require('../../hooks/safe-remove');
@@ -21,7 +21,11 @@ module.exports = {
     all: [],
     find: [],
     get: [],
-    create: [populateGlobals(), enrollCreator()],
+    create: [
+      populateGlobals(), 
+      enrollCreator(),
+      groupCreateEvent.hook,
+    ],
     update: [],
     patch: [],
     remove: []

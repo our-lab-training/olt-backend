@@ -16,6 +16,7 @@ const appHooks = require('./app.hooks');
 const channels = require('./channels');
 const plugins = require('./plugins');
 const permEvent = require('./lib/permEvent');
+const groupCreateEvent = require('./lib/groupCreateEvent');
 
 const mongoose = require('./mongoose');
 
@@ -37,6 +38,7 @@ app.use('/', express.static(app.get('public')));
 
 // Set up event hook listeners
 app.perms = permEvent;
+app.groupsCreate = groupCreateEvent;
 
 // Set up Plugins and providers
 app.configure(express.rest());
