@@ -14,12 +14,12 @@ module.exports = function (options = {}) {
     if (!data.name) return context;
 
     //generate a unique slug, the one at index 0 is considered "reserved"
-    let nameSlug = data.name.trim().toLowerCase().replace(/[^\w- ]/g, '').replace(' ', '_');
+    let nameSlug = data.name.trim().toLowerCase().replace(/[^\w- ]/g, '').replace(/[ ]/g, '_');
     let slug = nameSlug;
     for(let i = 1; i < 100; i++){
       groups = await service.find({query: {'slugs[0]': slug, _id: {$ne: id}}, paginate: false});
       if(groups.length < 1) break;
-      slug = `$nameSlug_${i}`;
+      slug = `${nameSlug}_${i}`;
     }
 
     // move slug to the 0 index  
