@@ -8,8 +8,12 @@ module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
   const roles = DefaultSchema(app);
   roles.add({
-    title: nameType(),
+    name: nameType(),
     groupId: ObjectIdType('groups', app),
+    addOnJoin: {
+      type: Boolean,
+      default: false,
+    },
   });
 
   return mongooseClient.model('roles', roles);
