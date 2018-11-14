@@ -40,8 +40,8 @@ module.exports = function (app) {
     slugs: {
       type: [{
         type: String,
-        maxlength: [256, 'the slug/name is too long.'],
-        match: [/^[\w-]+$/, 'invalid characters in slug'],
+        maxlength: [256, 'The slug/name is too long.'],
+        match: [/^[\w-]+$/, 'Invalid characters in slug "{VALUE}"'],
         lowercase: true,
       }],
       required: true,

@@ -2,8 +2,10 @@
 const createService = require('feathers-mongoose');
 const createModel = require('../../models/groups.model');
 const hooks = require('./groups.hooks');
+const perms = require('./groups.perms');
 
 module.exports = function (app) {
+  perms(app);
   const Model = createModel(app);
   const paginate = app.get('paginate');
 
