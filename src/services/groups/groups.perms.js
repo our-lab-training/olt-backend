@@ -2,11 +2,12 @@ const checkPerm = require('../../lib/checkPerm');
 
 module.exports = (app) => {
   app.perms.addPermListener('*.enrolled', async (context, perm) => {
-    const { params, data } = context;
+    const { params, data, existing } = context;
+    const { grantee } = existing || data;
     const groupId = perm[0];
     const hasPerm = await (async () => {
       if(checkPerm(`${groupId}.users.write`, params.user)) return true;
-      if(data.grantee !== params.user._id +'') return false;
+      if(grantee !== params.user._id +'') return false;
       const group = await app.service('groups').get(groupId);
       return ['public', 'global'].indexOf(group.type) !== -1;
     })();
@@ -15,7 +16,7 @@ module.exports = (app) => {
     await Promise.all(roles.map(async (role) => {
       await app.service('perms').create({
         perm: ['roles', role._id],
-        grantee: data.grantee,
+        grantee,
         type: 'users',
       });
     }));
