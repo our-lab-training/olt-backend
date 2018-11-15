@@ -37,6 +37,7 @@
     "@feathersjs/express": "^1.2.7",
     "@feathersjs/feathers": "^3.2.3",
     "@feathersjs/socketio": "^3.2.6",
+    "aws-sdk": "^2.356.0",
     "compression": "^1.7.3",
     "cors": "^2.8.4",
     "dotenv": "^6.1.0",
@@ -48,6 +49,7 @@
     "request-promise-native": "^1.0.5",
     "require-directory": "^2.1.1",
     "serve-favicon": "^2.5.0",
+    "uuid": "^3.3.2",
     "winston": "^3.1.0"
   },
   "devDependencies": {

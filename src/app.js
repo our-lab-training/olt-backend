@@ -17,6 +17,7 @@ const channels = require('./channels');
 const plugins = require('./plugins');
 const permEvent = require('./lib/permEvent');
 const groupCreateEvent = require('./lib/groupCreateEvent');
+const s3 = require('./lib/s3');
 
 const mongoose = require('./mongoose');
 
@@ -45,6 +46,8 @@ app.configure(express.rest());
 app.configure(socketio());
 
 app.configure(mongoose);
+
+app.configure(s3);
 
 // Set up plugins (see plugins/index.js)
 app.configure(plugins);
