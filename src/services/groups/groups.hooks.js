@@ -6,14 +6,16 @@ const populateGlobals = require('../../hooks/populate-globals');
 const manageSlugs = require('../../hooks/manage-slugs');
 const enrollCreator = require('../../hooks/enroll-creator');
 
+const uploadLogo = require('../../hooks/upload-logo');
+
 module.exports = {
   before: {
     all: [],
     find: [filterByGroup({override: 'superadmin.groups.read'})],
     get: [restrictMethod('{id}.enrolled')],
-    create: [restrictMethod('superadmin.groups.create'), manageSlugs()],
-    update: [restrictMethod('{id}.group.update'), manageSlugs()],
-    patch: [restrictMethod('{id}.group.update'), manageSlugs()],
+    create: [restrictMethod('superadmin.groups.create'), manageSlugs(), uploadLogo()],
+    update: [restrictMethod('{id}.group.update'), manageSlugs(), uploadLogo()],
+    patch: [restrictMethod('{id}.group.update'), manageSlugs(), uploadLogo()],
     remove: [restrictMethod('{id}.group.delete'), safeRemove()]
   },
 
