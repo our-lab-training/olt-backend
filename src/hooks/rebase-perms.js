@@ -23,12 +23,17 @@ const getUserPerms = async (userId, app) => {
 };
 
 // eslint-disable-next-line no-unused-vars
-module.exports = function (getUser, options = {}) {
-  if(!getUser) getUser = context => context.result.grantee;
+module.exports = function (getUsers, options = {}) {
+  if(!getUsers) getUsers = async context => 
+    context.result.type === 'users'
+      ? [context.result.grantee]
+      : (await context.service.find({query: {perm: ['roles', context.result.grantee], type: 'users'}, paginate: false})).map(p=>p.grantee);
   return async context => {
-    const userId = getUser(context);
+    const userIds = await getUsers(context);
     const {app} = context;
-    app.service('users').patch(userId, {perms: await getUserPerms(userId, app)});
+    await Promise.all(userIds.map(async userId =>
+      await app.service('users').patch(userId, {perms: await getUserPerms(userId, app)})
+    ));
     return context;
   };
 };
