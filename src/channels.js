@@ -24,7 +24,7 @@ module.exports = function(app) {
   const updateChannels = user => {
     // Find all connections for this user
     const { connections } = app.channel(app.channels).filter(connection =>
-      connection.user._id === user._id
+      connection.user && connection.user._id === user._id
     );
   
     // Leave all channels
