@@ -22,9 +22,9 @@ module.exports = {
     find: [],
     get: [],
     create: [
+      groupCreateEvent.hook,
       populateGlobals(), 
       enrollCreator(),
-      groupCreateEvent.hook,
     ],
     update: [],
     patch: [],

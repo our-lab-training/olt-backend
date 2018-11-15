@@ -38,7 +38,7 @@ app.use('/', express.static(app.get('public')));
 
 // Set up event hook listeners
 app.perms = permEvent;
-app.groupsCreate = groupCreateEvent;
+app.groupCreate = groupCreateEvent;
 
 // Set up Plugins and providers
 app.configure(express.rest());
