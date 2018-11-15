@@ -5,21 +5,21 @@
 module.exports = function (options = {}) {
   return async context => {
 
-    const {app, serviceName} = context;
+    const {app, serviceName, params} = context;
     const permsService = app.service('perms');
     
     if(serviceName === 'groups'){
       const users = await app.service('users').find({query: {$select: ['_id']}, paginate: false});
       const groupId = context.result._id;
       users.forEach(user => {
-        permsService.create({grantee: user._id, perm: [groupId, 'enrolled'], type: 'users'});
+        permsService.create({grantee: user._id, perm: [groupId, 'enrolled'], type: 'users'}, params);
       });
     }
     if(serviceName === 'users'){
       const groups = await app.service('groups').find({query: {type: 'global', $select: ['_id']}, paginate: false});
       const userId = context.result._id;
       groups.forEach(group => {
-        permsService.create({grantee: userId, perm: [group._id, 'enrolled'], type: 'users'});
+        permsService.create({grantee: userId, perm: [group._id, 'enrolled'], type: 'users'}, params);
       });
     }
     return context;
