@@ -17,7 +17,7 @@ module.exports = function (options = {}) {
     let nameSlug = data.name.trim().toLowerCase().replace(/[^\w- ]/g, '').replace(/[ ]/g, '_');
     let slug = nameSlug;
     for(let i = 1; i < 100; i++){
-      groups = await service.find({query: {'slugs[0]': slug, _id: {$ne: id}}, paginate: false});
+      groups = await service.find({query: {'slugs.0': slug, _id: {$ne: id}}, paginate: false});
       if(groups.length < 1) break;
       slug = `${nameSlug}_${i}`;
     }
