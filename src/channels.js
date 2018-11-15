@@ -8,6 +8,7 @@ module.exports = function(app) {
     const user = connection.user;
     // add to own userId channel
     app.channel(`userIds/${user._id}`).join(connection);
+    app.channel('groups/public').join(connection);
     // add to associated groups
     if(!user.perms) return;
     for(let groupId of user.perms.groups) {
@@ -99,6 +100,7 @@ module.exports = function(app) {
   app.service('users').on('removed', leaveChannels);
 
   app.service('groups').publish(data => {
+    if(['public', 'global'].indexOf(data.type) !== -1) return app.channel('groups/public');
     return app.channel(`groupIds/${data._id}`);
   });
 };
