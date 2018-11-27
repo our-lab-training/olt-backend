@@ -26,7 +26,8 @@
     "eslint": "eslint src/. test/. --config .eslintrc.json",
     "dev": "nodemon src/",
     "start": "node src/",
-    "mocha": "mocha test/ --recursive --exit"
+    "mocha": "mocha test/ --recursive --exit",
+    "preinstall": "git submodule init && git submodule update"
   },
   "dependencies": {
     "@feathersjs/authentication": "^2.1.11",
