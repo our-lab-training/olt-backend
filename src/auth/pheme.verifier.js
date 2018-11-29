@@ -14,7 +14,7 @@ module.exports = (app) => async (req, done) => {
     } else {
       body = await request({
         method: 'POST',
-        uri: 'https://auth.makeuwa.com/api/login',
+        uri: 'https://auth.systemhealthlab.com/api/login',
         body: {
           user: username,
           pass: password,
