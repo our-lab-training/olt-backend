@@ -12,16 +12,22 @@ module.exports = (app) => async (req, done) => {
     if(isDemoUser){
       body = {success: true, user: {username, email: '12345678@example.uwa.edu.au', firstname: 'Jo', lastname: 'Blogs'}};
     } else {
-      body = await request({
-        method: 'POST',
-        uri: 'https://auth.systemhealthlab.com/api/login',
-        body: {
-          user: username,
-          pass: password,
-          token: process.env.AUTH_TOKEN,
-        },
-        json: true,
-      });
+      try {
+        body = await request({
+          method: 'POST',
+          uri: 'https://auth.systemhealthlab.com/api/login',
+          body: {
+            user: username,
+            pass: password,
+            token: process.env.AUTH_TOKEN,
+          },
+          json: true,
+        });
+      } catch(err) {
+        if (err.statusCode >= 400 && err.statusCode < 500) throw new Error(err.error.message);
+        console.error(err); // eslint-disable-line
+        throw new Error('Unknown login issue occured, please contact an administrator.');
+      }
     }
     if(!body.success) throw new Error(body.message);
     const users = await app.service('users').find({query: {username: body.user.username}, paginate: false});
