@@ -1,4 +1,4 @@
-module.exports = (required=[true, 'An email is required.'], opts) => {return{
+module.exports = (required=[true, 'An email is required.'], opts) => ({
   type: String,
   required,
   match: [/^.+@.+[.].+$/, 'Invalid email provided.'],
@@ -6,4 +6,4 @@ module.exports = (required=[true, 'An email is required.'], opts) => {return{
   lowercase: true,
   maxLength: [320, 'An email address cannot exceed 320 characters in length'],
   ...opts
-};};
+});
