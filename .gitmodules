@@ -7,3 +7,6 @@
 [submodule "src/plugins/training"]
 	path = src/plugins/training
 	url = https://github.com/ThinkHub-io/access-plugin-training.git
+[submodule "src/plugins/safety-folder"]
+	path = src/plugins/safety-folder
+	url = https://github.com/ThinkHub-io/access-plugin-safety-folder.git
