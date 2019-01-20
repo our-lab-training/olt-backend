@@ -1,3 +1,4 @@
+const { authenticate } = require('@feathersjs/authentication').hooks;
 const groupCreateEvent = require('../../lib/groupCreateEvent');
 const restrictMethod = require('../../hooks/restrict-method');
 const filterByGroup = require('../../hooks/filter-by-group');
@@ -10,7 +11,7 @@ const uploadLogo = require('../../hooks/upload-logo');
 
 module.exports = {
   before: {
-    all: [],
+    all: [authenticate('jwt')],
     find: [filterByGroup({override: 'superadmin.groups.read'})],
     get: [restrictMethod('{id}.enrolled')],
     create: [restrictMethod('superadmin.groups.create'), manageSlugs(), uploadLogo()],

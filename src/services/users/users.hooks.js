@@ -1,10 +1,11 @@
-
+const { authenticate } = require('@feathersjs/authentication').hooks;
 const safeRemove = require('../../hooks/safe-remove');
 const populateGlobals = require('../../hooks/populate-globals');
+const { alterItems } = require('feathers-hooks-common');
 
 module.exports = {
   before: {
-    all: [],
+    all: [authenticate('jwt')],
     find: [],
     get: [],
     create: [],
@@ -14,7 +15,9 @@ module.exports = {
   },
 
   after: {
-    all: [],
+    all: [
+      alterItems(item => item.name = `${item.profile.title || ''} ${item.profile.displayName || `${item.profile.firstname} ${item.profile.lastname}`}`.trim()),
+    ],
     find: [],
     get: [],
     create: [populateGlobals()],

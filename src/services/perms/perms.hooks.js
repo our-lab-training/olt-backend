@@ -1,4 +1,5 @@
 
+const { authenticate } = require('@feathersjs/authentication').hooks;
 const permEvent = require('../../lib/permEvent');
 const safeRemove = require('../../hooks/safe-remove');
 const filterByGroup = require('../../hooks/filter-by-group');
@@ -8,7 +9,7 @@ const disableMethod = require('../../hooks/disable-method');
 
 module.exports = {
   before: {
-    all: [],
+    all: [authenticate('jwt')],
     find: [
       filterByGroup({
         id: 'perm[0]', 
