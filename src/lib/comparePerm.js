@@ -1,6 +1,6 @@
 const node2reg = node => new RegExp(node.replace(/\//g, '\\/').replace(/\*/g, '.*'));
 
-module.exports = async (perm, p, exact = false) => {
+module.exports = (perm, p, exact = false) => {
   if(typeof perm === 'string') perm = perm.split('.');
   if(exact && p.length !== perm.length) return false;
   for(let i = 0; i < Math.min(p.length, perm.length); i++){
