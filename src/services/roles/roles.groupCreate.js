@@ -4,18 +4,17 @@ const defaultRoles = [
   {
     name: 'User',
     addOnJoin: true,
-    perms: [
-      '{groupId}.quizzes.read',
-      '{groupId}.training.read',
-      '{groupId}.content.homepage/*.read',
-    ],
+    perms: [],
+  },
+  {
+    name: 'Moderator',
+    addOnJoin: false,
+    perms: [],
   },
   {
     name: 'Admin',
     addOnJoin: false,
-    perms: [
-      '{groupId}.*',
-    ],
+    perms: [],
   },
 ];
 
@@ -25,8 +24,14 @@ module.exports = (app) => {
 
     // populate roles, depending if the template is defined or not
     let roles = [];
-    if(!template) roles = _.cloneDeep(defaultRoles);
-    else {
+    if(!template){
+      roles = _.cloneDeep(defaultRoles);
+      app.groupPerms(group._id).forEach(p => {
+        if (p.defaultRoles) roles.forEach(r => {
+          if (p.defaultRoles.indexOf(r.name.toLowerCase()) !== -1) r.perms.push(p.value);
+        });
+      });
+    } else {
       roles = await app.service('roles').find({query: {groupId: template._id}, paginate: false});
       await Promise.all(roles.map(async (role) => {
         role.perms = (await app.service('perms').find({query: {grantee: role._id}, paginate: false})).map(perm=>perm.perm);

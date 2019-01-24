@@ -3,9 +3,12 @@ const createService = require('feathers-mongoose');
 const createModel = require('../../models/roles.model');
 const hooks = require('./roles.hooks');
 const groupCreate = require('./roles.groupCreate');
+const perms = require('./roles.perms');
+const channels = require('./roles.channels');
 
 module.exports = function (app) {
   groupCreate(app);
+  perms(app);
   const Model = createModel(app);
   const paginate = app.get('paginate');
 
@@ -21,4 +24,5 @@ module.exports = function (app) {
   const service = app.service('roles');
 
   service.hooks(hooks);
+  channels(app);
 };
