@@ -91,11 +91,17 @@ module.exports = function(app) {
   // });
   app.service('users').publish('updated', data => {
     updateChannels(data);
-    return app.channel(`userIds/${data._id}`);
+    return [
+      app.channel(`userIds/${data._id}`),
+      ...data.perms.groups.map(groupId => app.channel(`groupIds/${groupId}`))
+    ];
   });
   app.service('users').publish('patched', data => {
     updateChannels(data);
-    return app.channel(`userIds/${data._id}`);
+    return [
+      app.channel(`userIds/${data._id}`),
+      ...data.perms.groups.map(groupId => app.channel(`groupIds/${groupId}`))
+    ];
   });
   app.service('users').on('removed', leaveChannels);
 
