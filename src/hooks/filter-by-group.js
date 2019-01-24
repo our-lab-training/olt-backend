@@ -1,9 +1,10 @@
 // Use this hook to manipulate incoming or outgoing data.
 // For more information on hooks see: http://docs.feathersjs.com/api/hooks.html
 
-const _ = require('lodash');
+// const _ = require('lodash');
 const errors = require('@feathersjs/errors');
 const checkPerm = require('../lib/checkPerm');
+const { ObjectId } = require('mongoose').Types;
 
 
 
@@ -20,7 +21,7 @@ module.exports = function (opts = {}) {
 
     const andarr = params.query.$and = params.query.$and || [];
     const groupsIdFilter = {};
-    groupsIdFilter[opts.id] = {$in: params.user.perms.groups};
+    groupsIdFilter[opts.id] = {$in: params.user.perms.groups.map(id => ObjectId(id))};
     
     if(serviceName === 'groups'){
       andarr.push({$or: [
