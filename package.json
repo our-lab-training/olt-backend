@@ -44,6 +44,7 @@
     "dotenv": "^6.1.0",
     "feathers-hooks-common": "^4.17.14",
     "feathers-mongoose": "^6.1.4",
+    "github-create-issue": "^2.0.0",
     "helmet": "^3.13.0",
     "mongodb-core": "^3.1.5",
     "mongoose": "^5.2.15",
