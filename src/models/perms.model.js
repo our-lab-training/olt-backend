@@ -16,6 +16,7 @@ module.exports = function (app) {
     },
     grantee: typedObjectIdType('type', app),
     perm: permType(),
+    data: mongooseClient.Schema.Types.Mixed,
   });
 
   return mongooseClient.model('perms', perms);

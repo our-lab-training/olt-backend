@@ -1,5 +1,7 @@
 
 const { authenticate } = require('@feathersjs/authentication').hooks;
+const { iff, isProvider, discard } = require('feathers-hooks-common');
+
 const permEvent = require('../../lib/permEvent');
 const safeRemove = require('../../hooks/safe-remove');
 const filterByGroup = require('../../hooks/filter-by-group');
@@ -18,10 +20,23 @@ module.exports = {
       }),
     ],
     get: [disableMethod()],
-    create: [permEvent.hook, reEnablePerm()],
-    update: [disableMethod()],
-    patch: [disableMethod()],
-    remove: [permEvent.hook, safeRemove()]
+    create: [
+      iff(isProvider('external'), discard('data')),
+      permEvent.hook,
+      reEnablePerm(),
+    ],
+    update: [
+      iff(isProvider('external'), discard('data')),
+      disableMethod(),
+    ],
+    patch: [
+      iff(isProvider('external'), discard('data')),
+      disableMethod(),
+    ],
+    remove: [
+      permEvent.hook,
+      safeRemove(),
+    ]
   },
 
   after: {
