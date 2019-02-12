@@ -30,6 +30,7 @@
     "preinstall": "git submodule init && git submodule update"
   },
   "dependencies": {
+    "@feathers-nuxt/feathers-notifme": "^1.0.1-beta.1",
     "@feathersjs/authentication": "^2.1.11",
     "@feathersjs/authentication-jwt": "^2.0.5",
     "@feathersjs/authentication-local": "^1.2.5",
@@ -46,6 +47,7 @@
     "feathers-mongoose": "^6.1.4",
     "github-create-issue": "^2.0.0",
     "helmet": "^3.13.0",
+    "markdown-it": "^8.4.2",
     "mongodb-core": "^3.1.5",
     "mongoose": "^5.2.15",
     "passport-custom": "^1.0.5",
