@@ -14,13 +14,13 @@ module.exports = function (app) {
   events.add({
     name: nameType(),
     groupId: ObjectIdType('groups', app),
-    matches: [{
-      eventType: {
+    triggers: [{
+      triggerType: {
         type: String,
         enum: ['perm-create', 'perm-remove'],
         required: true,
       },
-      matchPerm: permType(),
+      perm: permType(false),
     }],
     actions: [{
       actionType: {

@@ -13,7 +13,7 @@ module.exports = function (app) {
   const notifyTemplate = DefaultSchema(app);
   notifyTemplate.add({
     groupId: ObjectIdType('groups', app),
-    title: nameType(),
+    subject: nameType(),
     text: descType(undefined, 4096),
     short: descType(undefined, 160),
     to: String,

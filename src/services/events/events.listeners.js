@@ -6,15 +6,15 @@ const findDay = (date, days) => {
 
 module.exports = (app) => process.nextTick(() => {
   const triggerPermEvent = async (perm, context) => {
-    if (perm.type !== 'user') return;
+    if (perm.type !== 'users') return;
     let {method} = context;
     const events = await app.service('events').find({
       query: {
-        matches: {
+        triggers: {
           $elemMatch: {
-            eventType: `perm-${method}`,
+            triggerType: `perm-${method}`,
             ...perm.perm.reduce((a, node, i) => {
-              a[`matchPerm.${i}`] = node;
+              a[`perm.${i}`] = node;
               return a;
             }, {}),
           },
