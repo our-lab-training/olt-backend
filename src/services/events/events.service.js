@@ -2,8 +2,10 @@
 const createService = require('feathers-mongoose');
 const createModel = require('../../models/events.model');
 const hooks = require('./events.hooks');
+const listeners = require('./events.listeners');
 
 module.exports = function (app) {
+  listeners(app);
   const Model = createModel(app);
   const paginate = app.get('paginate');
 

@@ -2,10 +2,12 @@
 const createService = require('feathers-mongoose');
 const createModel = require('../../models/notifications.model');
 const hooks = require('./notifications.hooks');
-const notifme = require('feathers-notifme');
+const timeout = require('./notifications.timeout');
+const notifme = require('@feathers-nuxt/feathers-notifme');
 const { disallow } = require('feathers-hooks-common');
 
 module.exports = function (app) {
+  timeout(app);
   const Model = createModel(app);
   const paginate = app.get('paginate');
 
