@@ -36,5 +36,15 @@
       "usernameField": "username",
       "passwordField": "password"
     }
+  },
+  "notifyFrom": "robot@mg.myacc.es",
+  "notifyChannels": {
+    "email": {
+      "providers": [{
+        "type": "mailgun",
+        "apiKey": "xxxxx",
+        "domainName": "example.com"
+      }]
+    }
   }
 }
