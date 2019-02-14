@@ -16,8 +16,8 @@ module.exports = function (opts = {}) {
     if(!params.user) throw new errors.NotAuthenticated('You must be logged in.');
     if(opts.override && checkPerm(opts.override, params.user)) return context;
     
-    opts.id = opts.id || serviceName === 'groups' ? '_id' : 'groupId';
-    opts.include = opts.include || serviceName === 'groups' ? ['public', 'global'] : ['global'];
+    opts.id = opts.id || (serviceName === 'groups' ? '_id' : 'groupId');
+    opts.include = opts.include || (serviceName === 'groups' ? ['public', 'global'] : ['global']);
 
     const andarr = params.query.$and = params.query.$and || [];
     const groupsIdFilter = {};
