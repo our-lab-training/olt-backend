@@ -15,7 +15,7 @@ module.exports = function (permissions='*', opts = {}) {
 
     for(let perm of permissions){
       const autofills = perm.match(/{[\w.[\]]+}/g) || [];
-      for(let autofill of autofills) perm = perm.replace(autofill, _.get(context, autofill));
+      for(let autofill of autofills) perm = perm.replace(autofill, _.get(context, autofill.replace(/(^{)|(}$)/g, '')));
       const hasPerm = checkPerm(perm, params.user);
       if(!opts.all && hasPerm) return context;
       if(opts.all && !hasPerm) throw new errors.Forbidden('You do not have all the permissions required.');

@@ -18,7 +18,7 @@ module.exports = function(app) {
 
   const leaveChannels = user => {
     app.channel(app.channels).leave(connection => {
-      return user._id === connection.user._id;
+      return connection.user && user._id === connection.user._id;
     });
   };
 
@@ -108,5 +108,15 @@ module.exports = function(app) {
   app.service('groups').publish(data => {
     if(['public', 'global'].indexOf(data.type) !== -1) return app.channel('groups/public');
     return app.channel(`groupIds/${data._id}`);
+  });
+
+  // app.service('groups').publish('created', (data, context) => {
+  //   updateChannels(context.params.user);
+  //   return null;
+  // });
+
+  app.publish((data) => {
+    if (data.groupId) return app.channel(`groupIds/${data.groupId}`);
+    return null;
   });
 };
