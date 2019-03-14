@@ -6,11 +6,12 @@ const errors = require('@feathersjs/errors');
 
 // eslint-disable-next-line no-unused-vars
 module.exports = function (options = {}) {
+  const s3Link = `https://s3-${process.env.AWS_REGION}.amazonaws.com/${process.env.AWS_BUCKET_PUBLIC}/`;
   return async context => {
 
     const { data, app } = context;
     const { logo } = data;
-    if(!logo) return context;
+    if(!logo || logo.indexOf(s3Link) === 0) return context;
     if(logo.indexOf('data:image/png;base64,') !== 0) throw new errors.BadRequest('Invalid logo image format provided.');
     const logoBuf = new Buffer(logo.replace(/^data:image\/\w+;base64,/, ''),'base64');
     const key = `logos/${uuidv4()}.png`;
@@ -30,7 +31,7 @@ module.exports = function (options = {}) {
       throw new errors.GeneralError('Failed to upload image, please contact an administrator.');
     }
 
-    context.data.logo = `https://s3-${process.env.AWS_REGION}.amazonaws.com/${process.env.AWS_BUCKET_PUBLIC}/${key}`;
+    context.data.logo = `${s3Link}/${key}`;
 
     return context;
   };
