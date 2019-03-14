@@ -31,7 +31,7 @@ module.exports = function (options = {}) {
       throw new errors.GeneralError('Failed to upload image, please contact an administrator.');
     }
 
-    context.data.logo = `${s3Link}/${key}`;
+    context.data.logo = `${s3Link}${key}`;
 
     return context;
   };
