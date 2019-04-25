@@ -17,7 +17,7 @@ module.exports = {
     create: [restrictMethod('superadmin.groups.create'), manageSlugs(), uploadLogo()],
     update: [restrictMethod('{id}.group.write'), manageSlugs(), uploadLogo()],
     patch: [restrictMethod('{id}.group.write'), manageSlugs(), uploadLogo()],
-    remove: [restrictMethod('{id}.group.write'), safeRemove()]
+    remove: [restrictMethod('superadmin.groups.delete'), safeRemove()]
   },
 
   after: {
