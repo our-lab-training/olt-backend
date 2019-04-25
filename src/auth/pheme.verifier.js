@@ -32,20 +32,24 @@ module.exports = (app) => async (req, done) => {
     if(!body.success) throw new Error(body.message);
     const users = await app.service('users').find({query: {username: body.user.username}, paginate: false});
     let user = null;
+    const data = {
+      username: body.user.username,
+      email: body.user.email,
+      profile: {
+        firstname: body.user.firstname,
+        lastname: body.user.lastname,
+        displayname: body.user.firstname,
+      }
+    };
     if(users.length === 0) {
-      user = await app.service('users').create({
-        username: body.user.username,
-        email: body.user.email,
-        profile: {
-          firstname: body.user.firstname,
-          lastname: body.user.lastname,
-          displayname: body.user.firstname,
-        }
-      });
+      user = await app.service('users').create(data);
       if(isDemoUser){
         await app.service('perms').create({perm: ['*'], type: 'users', grantee: user._id});
       }
-    } else user = users[0];
+    } else {
+      data.profile.displayname = users[0].profile.displayname || data.profile.displayname;
+      user = await app.service('users').patch(users[0]._id, data);
+    }
     done(null, user, {userId: user._id});
   } catch(err){
     done(null, false, {message: err.message});
