@@ -16,7 +16,7 @@ module.exports = {
 
   after: {
     all: [
-      alterItems(item => item.name = `${item.profile.title || ''} ${item.profile.displayName || `${item.profile.firstname} ${item.profile.lastname}`}`.trim()),
+      alterItems(item => item.name = `${item.profile.title || ''} ${item.profile.displayname || `${item.profile.firstname} ${item.profile.lastname}`}`.trim()),
     ],
     find: [],
     get: [],
