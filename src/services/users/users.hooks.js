@@ -12,7 +12,7 @@ module.exports = {
     ],
     get: [
       iff(
-        ctx => !ctx.params.user || ctx.id !== `${ctx.params.user._id}`,
+        ctx => ctx.params.user && ctx.id !== `${ctx.params.user._id}`,
         filterByGroup({override: 'superadmin.groups.read'}),
       ),
     ],

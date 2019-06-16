@@ -48,6 +48,7 @@
     "github-create-issue": "^2.0.0",
     "helmet": "^3.13.0",
     "markdown-it": "^8.4.2",
+    "markdown-pdf": "^9.0.0",
     "mongodb-core": "^3.1.5",
     "mongoose": "^5.2.15",
     "passport-custom": "^1.0.5",
