@@ -16,7 +16,7 @@ module.exports = {
       filterByGroup({
         id: 'perm[0]', 
         override: 'superadmin.perms.list',
-        restrict: '{groupId}.perms.list',
+        perms: '{groupId}.group.read',
       }),
     ],
     get: [disableMethod()],

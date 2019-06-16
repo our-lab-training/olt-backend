@@ -6,9 +6,11 @@ module.exports = {
   before: {
     all: [authenticate('jwt')],
     find: [
-      filterByGroup(),
+      filterByGroup({ perms: '{groupId}.group.read', override: 'superadmin.groups.read' }),
     ],
-    get: [],
+    get: [
+      filterByGroup({ perms: '{groupId}.group.read', override: 'superadmin.groups.read' }),
+    ],
     create: [
       restrictMethod('{data.groupId}.group.write'),
     ],
