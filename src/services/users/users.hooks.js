@@ -42,7 +42,12 @@ module.exports = {
 
   after: {
     all: [
-      alterItems(item => item.name = `${item.profile.title || ''} ${item.profile.displayname || `${item.profile.firstname} ${item.profile.lastname}`}`.trim()),
+      alterItems(item => 
+        item.name = item.profile.displayname && item.profile.displayname !== item.profile.firstname
+          ? item.profile.displayname
+          : `${item.profile.title || ''} ${item.profile.firstname} ${item.profile.lastname}`.trim(),
+      ),
+      alterItems(item => item.text = `${item.name} (${item.username})`),
     ],
     find: [],
     get: [],
