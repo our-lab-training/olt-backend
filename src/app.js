@@ -18,6 +18,7 @@ const plugins = require('./plugins');
 const permEvent = require('./lib/permEvent');
 const groupCreateEvent = require('./lib/groupCreateEvent');
 const s3 = require('./lib/s3');
+const docGen = require('./lib/doc-generator');
 
 const mongoose = require('./mongoose');
 
@@ -48,6 +49,7 @@ app.configure(socketio());
 app.configure(mongoose);
 
 app.configure(s3);
+app.configure(docGen);
 
 // Set up plugins (see plugins/index.js)
 app.configure(plugins);
