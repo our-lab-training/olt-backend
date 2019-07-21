@@ -2,6 +2,7 @@
 
 const DefaultSchema = require('../types/default.schema');
 const nameType = require('../types/name.type');
+const descType = require('../types/desc.type');
 const ObjectIdType = require('../types/objectId.type');
 
 module.exports = function (app) {
@@ -9,6 +10,7 @@ module.exports = function (app) {
   const roles = DefaultSchema(app);
   roles.add({
     name: nameType(),
+    desc: descType(),
     groupId: ObjectIdType('groups', app),
     addOnJoin: {
       type: Boolean,
