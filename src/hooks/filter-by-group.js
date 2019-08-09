@@ -28,7 +28,7 @@ module.exports = function (opts = {}) {
 
     const andarr = params.query.$and = params.query.$and || [];
     const groupsIdFilter = {};
-    groupsIdFilter[opts.id] = {$in: groups.map(id => ObjectId(id))};
+    groupsIdFilter[opts.id] = {$in: groups};
     
     if(serviceName === 'groups'){
       andarr.push({$or: [

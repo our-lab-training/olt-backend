@@ -8,12 +8,12 @@ module.exports = {
   before: {
     all: [authenticate('jwt')],
     find: [
-      filterByGroup({override: 'superadmin.groups.read'}),
+      filterByGroup({override: 'superadmin.groups.read', id: 'perms.groups'}),
     ],
     get: [
       iff(
         ctx => ctx.params.user && ctx.id !== `${ctx.params.user._id}`,
-        filterByGroup({override: 'superadmin.groups.read'}),
+        filterByGroup({override: 'superadmin.groups.read', id: 'perms.groups'}),
       ),
     ],
     create: [
