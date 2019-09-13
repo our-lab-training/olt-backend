@@ -53,6 +53,6 @@ __0.1.0__
 
 ## License
 
-Copyright (c) 2018
+Copyright (c) 2019
 
 Licensed under the [MIT license](LICENSE).
