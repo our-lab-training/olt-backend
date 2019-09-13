@@ -1,0 +1,17 @@
+version: 0.2
+
+env:
+  variables:
+    NODE_ENV: "production"
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 10
+  build:
+    commands:
+      - npm i --only=prod
+
+artifacts:
+  files:
+    - '**/*'
