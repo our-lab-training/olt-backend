@@ -1,4 +1,4 @@
 {
-  "host": "access-api-app.feathersjs.com",
+  "host": "api.ourlab.training",
   "port": "PORT"
 }

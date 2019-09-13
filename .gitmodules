@@ -1,12 +1,12 @@
 [submodule "src/plugins/content"]
 	path = src/plugins/content
-	url = https://github.com/ThinkHub-io/access-plugin-content.git
+	url = https://github.com/our-lab-training/olt-plugin-content.git
 [submodule "src/plugins/quizzes"]
 	path = src/plugins/quizzes
-	url = https://github.com/ThinkHub-io/access-plugin-quizzes.git
+	url = https://github.com/our-lab-training/olt-plugin-quizzes.git
 [submodule "src/plugins/training"]
 	path = src/plugins/training
-	url = https://github.com/ThinkHub-io/access-plugin-training.git
+	url = https://github.com/our-lab-training/olt-plugin-training.git
 [submodule "src/plugins/safety-folder"]
 	path = src/plugins/safety-folder
-	url = https://github.com/ThinkHub-io/access-plugin-safety-folder.git
+	url = https://github.com/our-lab-training/olt-plugin-safety-folder.git

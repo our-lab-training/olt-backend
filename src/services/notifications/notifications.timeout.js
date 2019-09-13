@@ -4,7 +4,7 @@ const md = require('markdown-it')();
 const footer = `
 <br><br>
 <small class="foot">
-  This is an automated message from <a href="https://myacc.es">Access</a>. Please do not reply.
+  This is an automated message from <a href="https://ourlab.training">Our Lab Training</a>. Please do not reply.
 </small>
 `;
 const header = `

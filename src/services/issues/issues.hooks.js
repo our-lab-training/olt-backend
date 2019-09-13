@@ -28,7 +28,7 @@ module.exports = {
     create: [
       (context) => new Promise((resolve, reject) => {
         const { result } = context;
-        createIssue('ThinkHub-io/access-issues', result.title, {...result, ...opts}, (error, issue) => {
+        createIssue('our-lab-training/olt-frontend', result.title, {...result, ...opts}, (error, issue) => {
           if (error) return reject(error);
           result.issue = issue;
           resolve(context);
