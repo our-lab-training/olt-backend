@@ -37,13 +37,14 @@
       "passwordField": "password"
     }
   },
-  "notifyFrom": "robot@mg.myacc.es",
+  "notifyFrom": "noreply@robot.ourlab.training",
   "notifyChannels": {
     "email": {
       "providers": [{
-        "type": "mailgun",
-        "apiKey": "xxxxx",
-        "domainName": "example.com"
+        "type": "ses",
+        "region": "AWS_MAIL_REGION",
+        "accessKeyId": "AWS_ACCESS_KEY_ID",
+        "secretAccessKey": "AWS_SECRET_ACCESS_KEY"
       }]
     }
   }
