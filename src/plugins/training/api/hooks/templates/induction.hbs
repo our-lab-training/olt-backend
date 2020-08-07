@@ -1,0 +1,35 @@
+# Our Lab Training: In-Person Induction Record
+
+**Organisation: {{group.name}}**
+**Induction: {{induction.name}}**
+
+This document is automatically generated upon the completion of an induction and serves as evidence that the induction took place. In order to create this document, both parties were required to use their UWA Pheme login credentials and accept the content that was covered, this acts as a digital signature.
+
+**Note:** Whilst this document serves as evidence that an induction has been completed by the inductee, it does not prove whether or not the inductee has completed all of the the required steps to complete the training. Evidence of training completion can be found in the training section of this organisation on Our Lab Training. This document will be automatically appended to the relevant evidence of training completion.
+
+## Date/Time of Induction Completion
+
+Date: {{moment date "YYYY-MM-DD"}}
+Time: {{moment date "HH:mm"}}
+
+## Inductees Signed Off
+
+The following people were present and agreed to having received and agreed to the content covered in the induction:
+{{#each users}}
+- {{text}}
+{{/each}}
+
+## Inductor
+
+This induction was approved by:
+{{inductor.text}}
+
+## Induction Checklist
+
+The following items were covered in the induction, and subsequently checked as complete by the inductor:
+{{#each comp.list}}
+- {{name}}
+{{#each children}}
+  - {{#if checked}}☑{{else}}☐{{/if}} {{name}}
+{{/each}}
+{{/each}}

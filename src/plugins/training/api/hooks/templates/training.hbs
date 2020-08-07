@@ -1,0 +1,32 @@
+# Our Lab Training: Training Completion Record
+
+**Organisation: {{group.name}}**
+**Training: {{training.name}}**
+**Trainee: {{user.text}}**
+**Date: {{moment date "YYYY-MM-DD"}}**
+**Time: {{moment date "HH:mm"}}**
+
+This document is automatically generated upon the completion of training and serves as evidence that the training took place.
+
+In order to create this document, the trainee was required to use their UWA Pheme login credentials to accept/complete the required training steps, this acts as a digital signature.
+
+## Completed Training Steps
+
+The following steps were required to complete the training:
+{{#each training.steps}}
+{{#if required}}
+{{#eq type "comment-link"}}{{#if link}}
+- ☑ [{{trim name}}]({{link}})
+{{else}}
+- ☑ {{name}}
+{{/if}}{{else}}
+- ☑ {{name}}
+{{/eq}}
+{{/if}}
+{{/each}}
+
+{{#if appendix.length}}
+## Appendix
+
+The following pages are evidence of certain step completion (e.g. induction)
+{{/if}}
