@@ -16,7 +16,7 @@ module.exports = function (fields, options = {}) {
       _.set(result._doc, field, value);
     }));
     return result._doc;
-  }
+  };
 
   return async context => {
     let {method} = context;
