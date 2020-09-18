@@ -1,7 +1,7 @@
 // Use this hook to manipulate incoming or outgoing data.
 // For more information on hooks see: http://docs.feathersjs.com/api/hooks.html
 
-const uuidv4 = require('uuid/v4');
+const { v4: uuidv4 } = require('uuid');
 const errors = require('@feathersjs/errors');
 
 // eslint-disable-next-line no-unused-vars

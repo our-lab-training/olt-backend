@@ -1,6 +1,6 @@
 
 const errors = require('@feathersjs/errors');
-const uuidv4 = require('uuid/v4');
+const { v4: uuidv4 } = require('uuid');
 
 // eslint-disable-next-line no-unused-vars
 module.exports = function (options = {}) {
