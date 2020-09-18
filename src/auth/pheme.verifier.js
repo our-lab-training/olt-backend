@@ -53,10 +53,10 @@ module.exports = (app) => class PhemeStrategy extends LocalStrategy {
         data.profile.displayname = users[0].profile.displayname || data.profile.displayname;
         user = await app.service('users').patch(users[0]._id, data);
       }
-      return { userId: user._id }
+      return { userId: user._id };
     } catch (err) {
-      console.log(err)
+      console.log(err);
       throw new NotAuthenticated(err);
     }
   }
-}
+};
