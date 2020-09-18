@@ -9,7 +9,8 @@ module.exports = function (app) {
 
   const options = {
     Model,
-    paginate
+    paginate,
+    whitelist: ['$exists']
   };
 
   // Initialize our service with any options it requires
@@ -20,11 +21,11 @@ module.exports = function (app) {
 
   service.hooks(hooks);
 
-  service.find({ query: { proofId: { $exists: false }, done: true } }).then(async ({ data }) => {
+  service.find({ query: { proofId: { $exists: true }, done: true } }).then(async ({ data }) => {
     const initProof = async (i) => {
       if (i >= data.length) return;
       await service.patch(data[i]._id, {});
-      await initProof(i+1);
+      await initProof(i + 1);
     };
     await initProof(0);
   });

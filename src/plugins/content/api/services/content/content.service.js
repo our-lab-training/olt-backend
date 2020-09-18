@@ -10,7 +10,7 @@ module.exports = function (app) {
   // const paginate = app.get('paginate');
 
   const options = {
-    Model,
+    Model, whitelist: ['$exists']
     // paginate
   };
 
