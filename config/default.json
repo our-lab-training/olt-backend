@@ -6,17 +6,16 @@
     "default": 10,
     "max": 50
   },
-  "mongodb": "mongodb://localhost:27017/ourlab.training",
+  "mongodb": "mongodb://localhost:27017/olt_dev",
   "authentication": {
     "secret": "9fa63fba9c6cbda80007aa2b3c6bea557b13c761124954d0c916822c9426e5de3cb48fc27f0b7572b2f553778f80cbd16d39e9a381b2208c30e4b96a2f881b19d43d11a7f6596baaedf0c16452da7d7d00cadbfe61420a1fe307ef281ae96c582a0c1e2215b3974a7603d630633639bc00c6efa0a9a3bdcfebe082d67bda05be6d6a93d26c493bc9b3d10d3c8f9c8ae4ab94289c4d47228c56e51098143345e6547c2e246e08810b0ae523b6d8be358d7703ce97510057eabcc0d19390a82d2f7f29bd1fd49ea588c67ba71c0e175af9ef8a1a690293b2bb2593807dbcf06ff4f83389d02c2e49ea103c318152ce890c52ab31288c5a479327d6bf0d66199019",
-    "strategies": [
+    "authStrategies": [
       "jwt",
       "local",
       "pheme"
     ],
-    "path": "/authentication",
     "service": "users",
-    "jwt": {
+    "jwtOptions": {
       "header": {
         "typ": "access"
       },
